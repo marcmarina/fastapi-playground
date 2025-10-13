@@ -8,7 +8,7 @@ services:
     labels:
       - "traefik.docker.network=traefik"
       - "traefik.enable=true"
-      - "traefik.http.routers.fastapi.rule=Host(`fastapi.marcmarina.com`)"
+      - "traefik.http.routers.fastapi.rule=Host(`fastapi.backend.marcmarina.com`)"
       - "traefik.http.routers.fastapi.entrypoints=websecure"
       - "traefik.http.routers.fastapi.tls.certresolver=letsencrypt"
       - "traefik.http.services.fastapi.loadbalancer.server.port=8000"
