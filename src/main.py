@@ -12,6 +12,11 @@ def root():
     return "Welcome to FastAPI Playground"
 
 
+@app.get('/test')
+def test():
+    return "test"
+
+
 @app.get("/_health")
 def health():
     return "OK"
