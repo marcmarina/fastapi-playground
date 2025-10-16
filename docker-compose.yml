@@ -1,18 +1,14 @@
-services:
-  app: 
-    build: .
-    command: uv run fastapi run src/main.py
-    restart: unless-stopped
-    networks:
-      - traefik
-    labels:
-      - "traefik.docker.network=traefik"
-      - "traefik.enable=true"
-      - "traefik.http.routers.fastapi.rule=Host(`fastapi.backend.marcmarina.com`)"
-      - "traefik.http.routers.fastapi.entrypoints=websecure"
-      - "traefik.http.routers.fastapi.tls.certresolver=letsencrypt"
-      - "traefik.http.services.fastapi.loadbalancer.server.port=8000"
+version: "3"
 
-networks:
-  traefik:
-    external: true
+services:
+  app:
+    image: fastapi-playground:latest
+    command: uv run fastapi run src/main.py --port 8081
+    ports:
+      - "8082:8082"
+    deploy:
+      replicas: 3
+      update_config:
+        order: start-first
+        parallelism: 1
+        delay: 10s
