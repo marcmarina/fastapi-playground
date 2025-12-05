@@ -1,17 +1,18 @@
 services:
-  app: 
-    build: .
+  app:
+    image: fastapi-playground
     command: uv run fastapi run src/main.py
     restart: unless-stopped
     networks:
       - traefik
-    labels:
-      - "traefik.docker.network=traefik"
-      - "traefik.enable=true"
-      - "traefik.http.routers.fastapi.rule=Host(`fastapi.backend.marcmarina.com`)"
-      - "traefik.http.routers.fastapi.entrypoints=websecure"
-      - "traefik.http.routers.fastapi.tls.certresolver=letsencrypt"
-      - "traefik.http.services.fastapi.loadbalancer.server.port=8000"
+    deploy:
+      labels:
+        - "traefik.swarm.network=traefik"
+        - "traefik.enable=true"
+        - "traefik.http.routers.fastapi.rule=Host(`fastapi.backend.marcmarina.com`)"
+        - "traefik.http.routers.fastapi.entrypoints=websecure"
+        - "traefik.http.routers.fastapi.tls.certresolver=letsencrypt"
+        - "traefik.http.services.fastapi.loadbalancer.server.port=8000"
 
 networks:
   traefik:
