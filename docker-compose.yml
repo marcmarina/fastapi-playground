@@ -2,7 +2,6 @@ services:
   app:
     image: fastapi-playground
     command: uv run fastapi run src/main.py
-    restart: unless-stopped
     networks:
       - traefik
     deploy:
@@ -10,8 +9,7 @@ services:
         - "traefik.swarm.network=traefik"
         - "traefik.enable=true"
         - "traefik.http.routers.fastapi.rule=Host(`fastapi.backend.marcmarina.com`)"
-        - "traefik.http.routers.fastapi.entrypoints=websecure"
-        - "traefik.http.routers.fastapi.tls.certresolver=letsencrypt"
+        - "traefik.http.routers.fastapi.entrypoints=web"
         - "traefik.http.services.fastapi.loadbalancer.server.port=8000"
 
 networks:
